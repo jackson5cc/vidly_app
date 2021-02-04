@@ -12,7 +12,7 @@ app.use(express.json());
 // db.on('error', console.log);
 
 app.get('/', (req, res) => {
-  res.send('App is running!');
+  res.send('<h1>App is running!</h1>');
 });
 
 app.get('/movies', async (req, res) => {
