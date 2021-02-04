@@ -1,6 +1,8 @@
 FROM node:15-alpine3.10
 WORKDIR /app
 COPY package.json . 
-RUN npm install 
+RUN npm install --only=production
 COPY . . 
-CMD [ "npm", "start" ]
+# I forgot to expose this. What's the result? 
+# EXPOSE 3000 
+CMD [ "node", "app.js" ]

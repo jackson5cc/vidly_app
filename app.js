@@ -1,13 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Movie = require('./models/movie');
+const config = require("./config/" + (process.env.NODE_ENV || "development"));
+console.log(config);
 
 const app = express();
 app.use(express.json());
 
-mongoose.connect('mongodb://db/vidly' , { useUnifiedTopology: true, useNewUrlParser: true });
-const db = mongoose.connection;
-db.on('error', console.log);
+// mongoose.connect(config.db.uri , { useUnifiedTopology: true, useNewUrlParser: true });
+// const db = mongoose.connection;
+// db.on('error', console.log);
+
+app.get('/', (req, res) => {
+  res.send('App is running!');
+});
 
 app.get('/movies', async (req, res) => {
   const movies = await Movie.find();
@@ -22,5 +28,5 @@ app.post('/movies', async (req, res) => {
   res.send(movie);
 });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
